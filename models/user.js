@@ -19,6 +19,25 @@ const userSchema = Schema(
       type: String,
       default: null,
     },
+    count: {
+      balance: {
+        type: Number,
+        default: 0,
+      },
+      incomes: {
+        type: Array,
+        default: [
+          { year: 2022, monce: "april", from: "work", value: "5000" },
+          { year: 2022, monce: "may", from: "avans", value: "1000" },
+        ],
+      },
+      expenses: {
+        type: Array,
+        default: [
+          { year: 2022, monce: "april", to: "shop", value: "5000" },
+          { year: 2022, monce: "may", to: "gift", value: "1000" },
+        ],
+      },
   },
   { versionKey: false, timestamps: true }
 );

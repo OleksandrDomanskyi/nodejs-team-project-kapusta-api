@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
+
 const User = require("../../models/user");
 const { createError } = require("../../helpers/");
 const { authorize } = require("../../middlewares");
@@ -71,6 +72,11 @@ router.post("/login", async (req, res, next) => {
       success: true,
       message: "Login succesfull",
       token,
+    }
+    const hashPassword = await bcrypt.hash(password, 10);
+    const result = await User.create({ email, password: hashPassword });
+    res.status(201).json({
+      email: result.email,
     });
   } catch (error) {
     next(error);
