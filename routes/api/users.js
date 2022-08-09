@@ -72,11 +72,6 @@ router.post("/login", async (req, res, next) => {
       success: true,
       message: "Login succesfull",
       token,
-    }
-    const hashPassword = await bcrypt.hash(password, 10);
-    const result = await User.create({ email, password: hashPassword });
-    res.status(201).json({
-      email: result.email,
     });
   } catch (error) {
     next(error);

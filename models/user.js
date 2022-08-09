@@ -38,6 +38,7 @@ const userSchema = Schema(
           { year: 2022, monce: "may", to: "gift", value: "1000" },
         ],
       },
+    },
   },
   { versionKey: false, timestamps: true }
 );
