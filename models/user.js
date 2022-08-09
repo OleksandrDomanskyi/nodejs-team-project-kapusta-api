@@ -15,6 +15,10 @@ const userSchema = Schema(
       minlength: 6,
       required: [true, "Password is required"],
     },
+    token: {
+      type: String,
+      default: null,
+    },
     count: {
       balance: {
         type: Number,
@@ -34,7 +38,6 @@ const userSchema = Schema(
           { year: 2022, monce: "may", to: "gift", value: "1000" },
         ],
       },
-    },
   },
   { versionKey: false, timestamps: true }
 );
