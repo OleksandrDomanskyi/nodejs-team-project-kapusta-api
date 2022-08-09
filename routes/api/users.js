@@ -4,7 +4,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-
 const User = require("../../models/user");
 const { createError } = require("../../helpers/");
 const { authorize } = require("../../middlewares");
@@ -67,11 +66,12 @@ router.post("/login", async (req, res, next) => {
       id: user._id,
     };
     const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "1h" });
-    await User.findByIdAndUpdate(user._id, { token });
+    const { balance } = await User.findByIdAndUpdate(user._id, { token });
     res.status(200).json({
       success: true,
       message: "Login succesfull",
       token,
+      balance,
     });
   } catch (error) {
     next(error);
@@ -97,10 +97,11 @@ router.get("/logout", authorize, async (req, res, next) => {
 });
 
 router.get("/current", authorize, async (req, res) => {
-  const { email } = req.user;
+  const { email, balance } = req.user;
   res.status(200).json({
     success: true,
     email,
+    balance,
   });
 });
 
