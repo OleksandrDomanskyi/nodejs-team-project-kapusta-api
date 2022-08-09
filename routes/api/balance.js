@@ -60,7 +60,6 @@ router.post("/", async (req, res, next) => {
 
     // 3. якщо такого баансу немає - то треба його створити і повернути користувачу баланс
     if (!balance) {
-      console.log("go go go");
       const newBalance = await Balance.create({ userId, value });
       res.status(201).json({ balance: newBalance.value });
     }
