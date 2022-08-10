@@ -4,7 +4,7 @@ const transactionSchema = Schema(
   {
     type: {
       type: String,
-      enum: ["income", "expense"],
+      enum: ["income", "expenses"],
       required: true,
     },
     date: {
@@ -15,11 +15,7 @@ const transactionSchema = Schema(
       type: String,
       required: true,
     },
-    subCategory: {
-      type: String,
-      required: true,
-    },
-    sum: {
+    value: {
       type: Number,
       required: true,
     },
@@ -42,6 +38,4 @@ const transactionSchema = Schema(
 
 const Transaction = model("transaction", transactionSchema);
 
-module.exports = {
-  Transaction,
-};
+module.exports = Transaction;
