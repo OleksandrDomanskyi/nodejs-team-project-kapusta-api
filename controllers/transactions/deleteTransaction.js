@@ -2,24 +2,18 @@ const Transaction = require("../../models/transaction");
 const User = require("../../models/user");
 const { createError } = require("../../helpers");
 
-const createTransation = async (req, res, next) => {
+const deleteTransaction = async (req, res, next) => {
   try {
     // ТУТ ТРЕБА ЗРОБИТИ ВАЛІДАЦІЮ
-    // РОЗРОБИТИ ЛОГІКУ ЯК ЗБЕРІГАТИ ДАТУ
-
     const { _id, balance } = req.user;
-    const { type, category, value, year, month, day } = req.body;
-    const result = await Transaction.create({
-      owner: _id,
-      type,
-      category,
-      value,
-      year,
-      month,
-      day,
+
+    const { id } = req.params;
+    const { type, value } = await Transaction.findById({ _id: id });
+    const result = await Transaction.findByIdAndDelete({
+      _id: id,
     });
     if (!result) {
-      throw createError(400, error.message);
+      throw createError(404, "Transaction ID not found");
     }
 
     // UPDATE BALANCE - ТРЕБА ВИНЕСТИ В ОКРЕМУ ФУНКЦІЮ
@@ -33,9 +27,8 @@ const createTransation = async (req, res, next) => {
     );
     ///////////////////////////////////////////////////////
 
-    res.status(201).json({
-      message: "Transaction created",
-      result,
+    res.status(200).json({
+      message: "transaction deleted",
       balance: updatedUser.balance,
     });
   } catch (error) {
@@ -43,4 +36,4 @@ const createTransation = async (req, res, next) => {
   }
 };
 
-module.exports = createTransation;
+module.exports = deleteTransaction;

@@ -7,10 +7,10 @@ const transactionSchema = Schema(
       enum: ["income", "expenses"],
       required: true,
     },
-    date: {
-      type: Date,
-      required: true,
-    },
+    // date: {
+    //   type: Date,
+    //   required: true,
+    // },
     category: {
       type: String,
       required: true,
@@ -21,12 +21,15 @@ const transactionSchema = Schema(
     },
     day: {
       type: String,
+      required: true,
     },
     month: {
       type: String,
+      required: true,
     },
     year: {
       type: String,
+      required: true,
     },
     owner: {
       type: Schema.Types.ObjectId,
