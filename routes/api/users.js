@@ -7,6 +7,7 @@ require("dotenv").config();
 const User = require("../../models/schemas/user");
 const { createError } = require("../../helpers/");
 const { authorize } = require("../../middlewares");
+const { users: controller } = require("../../controllers");
 
 const router = express.Router();
 
@@ -104,5 +105,8 @@ router.get("/current", authorize, async (req, res) => {
     balance,
   });
 });
+
+// UPDATE BALANCE
+router.patch("/balance", authorize, controller.updateBalance);
 
 module.exports = router;
