@@ -1,5 +1,5 @@
 const Transaction = require("../../models/transaction");
-const User = require("../../models/user");
+const User = require("../../models/schemas/user");
 const { createError } = require("../../helpers");
 
 const deleteTransaction = async (req, res, next) => {

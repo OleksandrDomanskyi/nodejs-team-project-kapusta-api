@@ -1,6 +1,22 @@
-const User = require("../../models/user");
+const User = require("../../models/schemas/user");
 const { createError } = require("../../helpers");
 
-const updateBalance = async (req, res, next) => {};
+const updateBalance = async (req, res, next) => {
+  try {
+    const { _id } = req.user;
+    const { balance } = req.body;
+    const user = await User.findByIdAndUpdate(
+      { _id },
+      { balance },
+      { returnDocument: "after" }
+    );
+    res.status(200).json({
+      message: "balance updated",
+      balance: user.balance,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = updateBalance;
