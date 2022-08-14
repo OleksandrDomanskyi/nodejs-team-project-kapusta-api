@@ -108,6 +108,6 @@ router.get("/current", authorize, async (req, res) => {
 });
 
 // UPDATE BALANCE
-router.patch("/balance", authorize, controller.updateBalance);
+router.patch("/balance", authorize, controller.createBalance);
 
 module.exports = router;
