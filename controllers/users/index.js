@@ -1,5 +1,5 @@
-const updateBalance = require("./updateBalance");
+const createBalance = require("./createBalance");
 
 module.exports = {
-  updateBalance,
+  createBalance,
 };
