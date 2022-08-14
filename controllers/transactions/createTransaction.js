@@ -1,41 +1,31 @@
 const Transaction = require("../../models/transaction");
-const User = require("../../models/schemas/user");
 const { createError } = require("../../helpers");
 
 const createTransation = async (req, res) => {
   // ТУТ ТРЕБА ЗРОБИТИ ВАЛІДАЦІЮ
-  // РОЗРОБИТИ ЛОГІКУ ЯК ЗБЕРІГАТИ ДАТУ
+  const owner = req.user._id;
+  const { type, value, category, date } = req.body;
+  const normalizedDate = new Date(date);
+  const day = normalizedDate.getDate();
+  const month = normalizedDate.getMonth() + 1;
+  const year = normalizedDate.getFullYear();
 
-  const { _id, balance } = req.user;
-  const { type, category, value, year, month, day } = req.body;
   const result = await Transaction.create({
-    owner: _id,
     type,
-    category,
     value,
-    year,
-    month,
+    category,
+    date,
     day,
+    month,
+    year,
+    owner,
   });
   if (!result) {
     throw createError(400, error.message);
   }
-
-  // UPDATE BALANCE - ТРЕБА ВИНЕСТИ В ОКРЕМУ ФУНКЦІЮ
-  let newBalance = +balance;
-  type === "income" ? (newBalance += +value) : (newBalance -= +value);
-
-  const updatedUser = await User.findByIdAndUpdate(
-    { _id },
-    { balance: newBalance },
-    { returnDocument: "after" }
-  );
-  ///////////////////////////////////////////////////////
-
   res.status(201).json({
     message: "Transaction created",
     result,
-    balance: updatedUser.balance,
   });
 };
 

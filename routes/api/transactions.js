@@ -16,7 +16,11 @@ router.delete("/:id", authorize, ctrlWrapper(ctrl.deleteTransation));
 router.get("/:date", authorize, ctrlWrapper(ctrl.findAllTransactionsByDate));
 
 // FINT TRANSACTION BY PERIOD - YEAR/MONTH
-// router.get("/period/:year") - ПОШУК ТРАНЗАКЦІЇ ЗА РІК
+router.get(
+  "/period/:period",
+  authorize,
+  ctrlWrapper(ctrl.findAllTransactionsByPeriod)
+);
 
 // router.put("/:id") - ОНОВЛЕННЯ ТРАНЗАКЦІЇ
 
