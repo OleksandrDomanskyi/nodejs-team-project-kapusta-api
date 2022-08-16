@@ -81,7 +81,7 @@ router.post("/login", async (req, res, next) => {
 });
 
 //logout
-router.get("/logout", authorize, async (req, res, next) => {
+router.post("/logout", authorize, async (req, res, next) => {
   try {
     const { _id } = req.user;
     const user = await User.findById(_id);
