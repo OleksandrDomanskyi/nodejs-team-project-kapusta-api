@@ -81,6 +81,16 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
+// current
+router.get("/current", authorize, async (req, res) => {
+  const { email, balance } = req.user;
+  res.status(200).json({
+    success: true,
+    email,
+    balance,
+  });
+});
+
 //logout
 router.post("/logout", authorize, async (req, res, next) => {
   try {
@@ -99,11 +109,13 @@ router.post("/logout", authorize, async (req, res, next) => {
   }
 });
 
-router.get("/current", authorize, async (req, res) => {
-  const { email, balance } = req.user;
+// GET BALANCE
+
+router.get("/user/balance", authorize, async (req, res) => {
+  const { _id } = req.user;
+  const balance = await User.findById({ _id });
   res.status(200).json({
     success: true,
-    email,
     balance,
   });
 });

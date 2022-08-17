@@ -4,7 +4,8 @@ const { createError } = require("../../helpers");
 const createTransation = async (req, res) => {
   // ТУТ ТРЕБА ЗРОБИТИ ВАЛІДАЦІЮ
   const owner = req.user._id;
-  const { type, value, category, date, description } = req.body;
+  const { type, value, category, date, description } = req.body.transaction;
+
   const normalizedDate = new Date(date);
   const day = normalizedDate.getDate();
   const month = normalizedDate.getMonth() + 1;
@@ -21,6 +22,7 @@ const createTransation = async (req, res) => {
     year,
     owner,
   });
+
   if (!result) {
     throw createError(400, error.message);
   }
