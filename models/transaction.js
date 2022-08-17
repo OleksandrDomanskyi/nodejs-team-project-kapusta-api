@@ -15,6 +15,10 @@ const transactionSchema = Schema(
       type: String,
       required: true,
     },
+    description: {
+      type: String,
+      required: true,
+    },
     value: {
       type: Number,
       required: true,
