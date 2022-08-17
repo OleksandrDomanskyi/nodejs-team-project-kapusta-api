@@ -6,6 +6,9 @@ const { ctrlWrapper } = require("../../helpers");
 
 const router = express.Router();
 
+// GET ALL TRANSACTIONS
+router.get("/", authorize, ctrlWrapper(ctrl.getAllTransactions));
+
 // ADD NEW TRANSACTION
 router.post("/", authorize, ctrlWrapper(ctrl.createTransation));
 
