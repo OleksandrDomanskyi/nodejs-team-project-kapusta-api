@@ -8,6 +8,7 @@ const User = require("../../models/schemas/user");
 const { createError } = require("../../helpers/");
 const { authorize } = require("../../middlewares");
 const { users: controller } = require("../../controllers");
+const { ctrlWrapper } = require("../../helpers");
 
 const router = express.Router();
 
@@ -111,16 +112,9 @@ router.post("/logout", authorize, async (req, res, next) => {
 
 // GET BALANCE
 
-router.get("/user/balance", authorize, async (req, res) => {
-  const { _id } = req.user;
-  const balance = await User.findById({ _id });
-  res.status(200).json({
-    success: true,
-    balance,
-  });
-});
+router.get("/balance", authorize, ctrlWrapper(controller.getBalance));
 
 // UPDATE BALANCE
-router.patch("/balance", authorize, controller.createBalance);
+router.patch("/balance", authorize, ctrlWrapper(controller.createBalance));
 
 module.exports = router;
