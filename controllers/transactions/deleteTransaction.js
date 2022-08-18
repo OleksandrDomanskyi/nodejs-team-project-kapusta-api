@@ -1,9 +1,13 @@
 const Transaction = require("../../models/transaction");
+const Joi = require("joi");
 const { createError } = require("../../helpers");
 
-const deleteTransaction = async (req, res) => {
-  // ТУТ ТРЕБА ЗРОБИТИ ВАЛІДАЦІЮ
+const deleteTransactionSchema = Joi.object({
+  id: Joi.string().required(),
+});
 
+const deleteTransaction = async (req, res) => {
+  deleteTransactionSchema.validate(req.params);
   const { id } = req.params;
   const result = await Transaction.findByIdAndDelete({
     _id: id,
