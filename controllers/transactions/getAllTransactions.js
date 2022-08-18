@@ -2,7 +2,6 @@ const Transaction = require("../../models/transaction");
 const { createError } = require("../../helpers");
 
 const getAllTransactions = async (req, res) => {
-  // ТУТ ТРЕБА ЗРОБИТИ ВАЛІДАЦІЮ
   const owner = req.user._id;
 
   const transactions = await Transaction.find({

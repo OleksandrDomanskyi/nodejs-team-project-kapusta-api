@@ -1,14 +1,28 @@
 const Transaction = require("../../models/transaction");
-const { createError } = require("../../helpers");
+const Joi = require("joi");
+
+const findAllTransactionsByDateSchema = Joi.object({
+  date: Joi.date().required(),
+});
 
 const findAllTransactionsByDate = async (req, res) => {
-  // ТУТ ТРЕБА ЗРОБИТИ ВАЛІДАЦІЮ
-  // в дату має потрапляти наступний формат: yyyy-mm-dd
-
+  const { error } = findAllTransactionsByDateSchema.validate(req.params.date);
+  if (error) {
+    throw createError(400, error.message);
+  }
   const { date } = req.params;
+  console.log(date);
+
+  const normalizedDate = new Date(date);
+  const day = normalizedDate.getDate();
+  const month = String(normalizedDate.getMonth() + 1).padStart(2, 0);
+  const year = normalizedDate.getFullYear();
+
   const result = await Transaction.find({
     owner: req.user._id,
-    date,
+    year,
+    month,
+    day,
   });
 
   res.status(200).json({

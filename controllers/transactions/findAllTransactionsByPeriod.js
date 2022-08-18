@@ -1,12 +1,22 @@
 const Transaction = require("../../models/transaction");
+const Joi = require("joi");
+const { createError } = require("../../helpers");
 
-const getAllTransactionsByPeriod = async (req, res) => {
+const findAllTransactionsByDateSchema = Joi.object({
+  periodId: Joi.string().min(4).max(7).required(),
+});
+
+const findAllTransactionsByPeriod = async (req, res) => {
+  const { error } = findAllTransactionsByDateSchema.validate(req.params);
+  if (error) {
+    throw createError(400, error.message);
+  }
   const { _id } = req.user;
-  const { period } = req.params;
-  const periodLenght = period.length;
-  if (period) {
+  const { periodId } = req.params;
+  const periodLenght = periodId.length;
+  if (periodId) {
     if (periodLenght <= 4) {
-      const year = period;
+      const year = periodId;
       const result = await Transaction.find({ owner: _id, year });
       res.status(200).json({
         message: "All transactions was finded",
@@ -14,7 +24,7 @@ const getAllTransactionsByPeriod = async (req, res) => {
       });
     }
     if (periodLenght > 5) {
-      const newPeriod = period.split("-");
+      const newPeriod = periodId.split("-");
       const year = newPeriod[0];
       const month = newPeriod[1];
 
@@ -31,4 +41,4 @@ const getAllTransactionsByPeriod = async (req, res) => {
   }
 };
 
-module.exports = getAllTransactionsByPeriod;
+module.exports = findAllTransactionsByPeriod;

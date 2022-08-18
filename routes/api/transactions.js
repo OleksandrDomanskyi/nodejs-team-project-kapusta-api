@@ -20,7 +20,7 @@ router.get("/:date", authorize, ctrlWrapper(ctrl.findAllTransactionsByDate));
 
 // FINT TRANSACTION BY PERIOD - YEAR/MONTH
 router.get(
-  "/period/:period",
+  "/period/:periodId",
   authorize,
   ctrlWrapper(ctrl.findAllTransactionsByPeriod)
 );
