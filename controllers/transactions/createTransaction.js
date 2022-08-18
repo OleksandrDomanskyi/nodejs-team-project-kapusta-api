@@ -11,7 +11,10 @@ const createTransactionSchema = Joi.object({
 });
 
 const createTransation = async (req, res) => {
-  createTransactionSchema.validate(req.body.transaction);
+  const { error } = createTransactionSchema.validate(req.body.transaction);
+  if (error) {
+    throw createError(400, error.message);
+  }
   const owner = req.user._id;
   const { type, value, category, date, description } = req.body.transaction;
 

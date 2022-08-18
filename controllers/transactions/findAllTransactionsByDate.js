@@ -6,7 +6,10 @@ const findAllTransactionsByDateSchema = Joi.object({
 });
 
 const findAllTransactionsByDate = async (req, res) => {
-  findAllTransactionsByDateSchema.validate(req.params.date);
+  const { error } = findAllTransactionsByDateSchema.validate(req.params.date);
+  if (error) {
+    throw createError(400, error.message);
+  }
   const { date } = req.params;
   console.log(date);
 

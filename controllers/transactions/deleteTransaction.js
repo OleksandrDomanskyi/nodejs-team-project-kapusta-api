@@ -7,7 +7,10 @@ const deleteTransactionSchema = Joi.object({
 });
 
 const deleteTransaction = async (req, res) => {
-  deleteTransactionSchema.validate(req.params);
+  const { error } = deleteTransactionSchema.validate(req.params);
+  if (error) {
+    throw createError(400, error.message);
+  }
   const { id } = req.params;
   const result = await Transaction.findByIdAndDelete({
     _id: id,
