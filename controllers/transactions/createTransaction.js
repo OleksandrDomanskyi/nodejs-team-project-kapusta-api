@@ -8,7 +8,9 @@ const createTransation = async (req, res) => {
 
   const normalizedDate = new Date(date);
   const day = normalizedDate.getDate();
-  const month = normalizedDate.getMonth() + 1;
+  const month = String(normalizedDate.getMonth() + 1).padStart(2, 0);
+  console.log(month);
+
   const year = normalizedDate.getFullYear();
 
   const result = await Transaction.create({
