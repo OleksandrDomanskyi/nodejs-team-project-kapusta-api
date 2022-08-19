@@ -1,4 +1,4 @@
-const User = require("../../models/schemas/user");
+const { User } = require("../../models/schemas/user");
 const Joi = require("joi");
 const { createError } = require("../../helpers");
 

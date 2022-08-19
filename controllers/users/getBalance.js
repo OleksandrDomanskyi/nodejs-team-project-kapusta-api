@@ -1,4 +1,4 @@
-const User = require("../../models/schemas/user");
+const { User } = require("../../models/schemas/user");
 
 const getBalance = async (req, res) => {
   const { _id } = req.user;
