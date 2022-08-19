@@ -19,9 +19,9 @@ router.post(
   ctrlWrapper(controller.login)
 );
 
-router.get("/current", ctrlWrapper(controller.current));
+router.get("/current", authorize, ctrlWrapper(controller.current));
 
-router.post("/logout", ctrlWrapper(controller.logout));
+router.post("/logout", authorize, ctrlWrapper(controller.logout));
 
 // GET BALANCE
 
