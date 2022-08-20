@@ -13,9 +13,10 @@ const findAllTransactionsByPeriod = async (req, res) => {
   }
   const { _id } = req.user;
   const { periodId } = req.params;
-  const periodLenght = periodId.length;
+  console.log(periodId)
+  const periodLength = periodId.length;
   if (periodId) {
-    if (periodLenght <= 4) {
+    if (periodLength <= 4) {
       const year = periodId;
       const result = await Transaction.find({ owner: _id, year });
       res.status(200).json({
@@ -23,7 +24,7 @@ const findAllTransactionsByPeriod = async (req, res) => {
         result,
       });
     }
-    if (periodLenght > 5) {
+    if (periodLength > 5) {
       const newPeriod = periodId.split("-");
       const year = newPeriod[0];
       const month = newPeriod[1];

@@ -18,7 +18,7 @@ router.delete("/:id", authorize, ctrlWrapper(ctrl.deleteTransation));
 // FIND TRANSACTION BY DATE
 router.get("/:date", authorize, ctrlWrapper(ctrl.findAllTransactionsByDate));
 
-// FINT TRANSACTION BY PERIOD - YEAR/MONTH
+// FIND TRANSACTION BY PERIOD - YEAR/MONTH
 router.get(
   "/period/:periodId",
   authorize,
