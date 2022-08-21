@@ -19,7 +19,7 @@ const createTransation = async (req, res) => {
   const { type, value, category, date, description } = req.body.transaction;
 
   const normalizedDate = new Date(date);
-  const day = normalizedDate.getDate();
+  const day = String(normalizedDate.getDate()).padStart(2, 0);
   const month = String(normalizedDate.getMonth() + 1).padStart(2, 0);
   const year = normalizedDate.getFullYear();
 
